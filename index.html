@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spider-Verse</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-black text-white overflow-x-hidden">
+
+  <!-- Spider-Man -->
+  <img src="assets/spider.png" class="spiderman" id="spiderman">
+
+  <!-- HERO -->
+    <section class="hero h-screen relative overflow-hidden">
+
+        <img src="assets/bg-far.png" class="layer far">
+        <img src="assets/bg-mid.png" class="layer mid">
+        <img src="assets/bg-front.png" class="layer front">
+
+        <h1 class="title">SPIDER-VERSE</h1>
+    </section>
+
+  <!-- SECTION 1 -->
+  <section class="h-screen flex items-center justify-center bg-gray-900">
+    <h2 class="text-4xl">Who is Spider-Man?</h2>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="h-screen flex items-center justify-center bg-black">
+    <h2 class="text-4xl">Movies & Multiverse</h2>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="h-screen flex items-center justify-center bg-gray-900">
+    <h2 class="text-4xl">Villains</h2>
+  </section>
+
+
+ <!-- SECTION 4 -->
+    <section class="comic-panel">
+        <div class="card">Peter Parker</div>
+        <div class="card">Miles Morales</div>
+    </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

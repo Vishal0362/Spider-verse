@@ -1,0 +1,77 @@
+body {
+  scroll-behavior: smooth;
+}
+
+/* Spider-Man image */
+.spiderman {
+  position: fixed;
+  top: 50px;
+  left: -100px;
+  width: 80px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.hero {
+  perspective: 1000px;
+}
+
+.layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.far { z-index: 1; }
+.mid { z-index: 2; }
+.front { z-index: 3; }
+
+.title {
+  position: absolute;
+  z-index: 10;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+body {
+  background: black;
+}
+
+/* Comic halftone effect */
+body::before {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Glitch text */
+.title {
+  color: red;
+  text-shadow: 
+    2px 2px blue,
+    -2px -2px cyan;
+}
+
+.comic-panel {
+  display: flex;
+  gap: 20px;
+  padding: 50px;
+}
+
+.card {
+  background: white;
+  color: black;
+  padding: 20px;
+  border: 5px solid black;
+  transform: rotate(-2deg);
+  box-shadow: 10px 10px 0 red;
+}
