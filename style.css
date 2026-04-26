@@ -112,3 +112,37 @@ body {
   opacity: 1;
   transform: none;
 }
+
+.movie-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  border: 4px solid white;
+  transition: 0.3s;
+}
+
+.movie-card img {
+  width: 100%;
+  display: block;
+  transition: 0.4s;
+}
+
+.movie-card p {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0,0,0,0.7);
+  padding: 10px;
+}
+
+/* 🔥 Hover effect */
+.movie-card:hover {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 20px 50px rgba(255,0,0,0.5);
+}
+
+.movie-card:hover img {
+  transform: scale(1.1);
+}

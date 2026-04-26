@@ -124,3 +124,14 @@ window.addEventListener("load", () => {
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh();
 });
+
+gsap.from(".movie-card", {
+  y: 100,
+  opacity: 0,
+  duration: 1,
+  stagger: 0.2,
+  scrollTrigger: {
+    trigger: ".movie-card",
+    start: "top 80%"
+  }
+});
