@@ -6,13 +6,16 @@
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
 
   <!-- GSAP -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
 </head>
 
 <body class="bg-black text-white overflow-x-hidden">
@@ -26,70 +29,150 @@
   <div id="web-line"
        class="fixed top-0 left-8 w-[2px] h-[120px] bg-white z-[999]"></div>
 
-  <!-- HERO -->
-  <section class="relative h-screen overflow-hidden">
+  <!-- 🧭 FIXED NAVBAR (GLOBAL) -->
+<div class="fixed top-5 left-1/2 -translate-x-1/2 w-[80%] px-8 py-4
+            flex justify-between items-center rounded-full
+            backdrop-blur-md bg-white/10 z-[1000]">
 
-    <!-- Background -->
-    <img src="assets/bg-mid.jpg"
-         class="absolute w-full h-full object-cover brightness-75 contrast-125">
+  <div class="text-red-500 font-bold">🕷 SPIDEY</div>
 
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-80"></div>
+  <div class="space-x-6 text-white">
+    <span class="cursor-pointer hover:text-red-500">LEAP</span>
+    <span class="cursor-pointer hover:text-red-500">MOVIES</span>
+    <span class="cursor-pointer hover:text-red-500">MULTIVERSE</span>
+    <span class="cursor-pointer hover:text-red-500">VILLAINS</span>
+    <span class="cursor-pointer hover:text-red-500">POWERS</span>
+  </div>
+</div>
 
-    <!-- Navbar -->
-    <div class="absolute top-5 left-1/2 -translate-x-1/2 w-[80%] px-8 py-4
-                flex justify-between items-center rounded-full
-                backdrop-blur-md bg-white/10 z-10">
+<!--Hero-->
+<section class="hero relative h-screen overflow-hidden">
 
-      <div class="text-red-500 font-bold">🕷 SPIDEY</div>
+  <!-- Background -->
+  <img src="assets/bg-mid.jpg"
+       class="hero-bg absolute w-full h-full object-cover brightness-75 contrast-125">
 
-      <div class="space-x-6 text-white">
-        <span class="cursor-pointer">LEAP</span>
-        <span class="cursor-pointer">MOVIES</span>
-        <span class="cursor-pointer">MULTIVERSE</span>
-        <span class="cursor-pointer">VILLAINS</span>
-        <span class="cursor-pointer">POWERS</span>
-      </div>
-    </div>
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-80"></div>
 
-    <!-- Content -->
-    <div class="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-center z-10">
+  <!-- Content -->
+  <div class="hero-content absolute top-[55%] left-1/2 
+              -translate-x-1/2 -translate-y-1/2 text-center z-10">
 
-      <p class="comic-subtitle">
-        YOUR FRIENDLY NEIGHBORHOOD
-      </p>
+    <p class="comic-subtitle">YOUR FRIENDLY NEIGHBORHOOD</p>
 
-      <h1 class="spidey-title">SPIDER-MAN</h1>
+    <h1 class="spidey-title">SPIDER-MAN</h1>
 
-      <p class="text-gray-300 max-w-xl mx-auto mt-2">
-        With great power comes great responsibility. Swing through the complete saga of the wall-crawler.
-      </p>
+    <p class="text-gray-300 max-w-xl mx-auto mt-2">
+      With great power comes great responsibility.
+    </p>
 
-      <p class="text-yellow-400 font-bold mt-5">
-        SCROLL TO SWING ↓
-      </p>
+    <p class="text-yellow-400 font-bold mt-5">
+      SCROLL TO SWING ↓
+    </p>
 
-    </div>
+  </div>
 
-  </section>
+</section>
 
-  <!-- SECTION 1 -->
-  <section class="h-screen flex items-center justify-center bg-gray-900">
-    <h2 class="text-4xl">Who is Spider-Man?</h2>
-  </section>
+<!-- 🟡 COMIC TICKER STRIP (BRIDGE STYLE) -->
+<div class="relative w-full z-20 -mt-16 mb-[-80px] 
+            bg-yellow-400 overflow-hidden 
+            py-8 border-y-4 border-white 
+            rotate-[-2deg] shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+
+  <div class="ticker flex whitespace-nowrap 
+              font-black text-black 
+              text-5xl tracking-[6px]">
+
+    <span class="mx-12">WEB-SLINGER ★</span>
+    <span class="mx-12">WALL-CRAWLER ★</span>
+    <span class="mx-12">SPIDER-SENSE ★</span>
+    <span class="mx-12">THWIP ★</span>
+    <span class="mx-12">QUEENS NY ★</span>
+    <span class="mx-12">WITH GREAT POWER ★</span>
+
+    <!-- duplicate -->
+    <span class="mx-12">WEB-SLINGER ★</span>
+    <span class="mx-12">WALL-CRAWLER ★</span>
+    <span class="mx-12">SPIDER-SENSE ★</span>
+    <span class="mx-12">THWIP ★</span>
+    <span class="mx-12">QUEENS NY ★</span>
+    <span class="mx-12">WITH GREAT POWER ★</span>
+
+  </div>
+</div>
+
+<!--Section 1-->
+<section class="h-screen bg-black flex items-center px-20 relative overflow-hidden">
+
+  <!-- 🌆 BACKGROUND IMAGE -->
+  <img src="assets/bg-far.jpg"
+       class="absolute inset-0 w-full h-full object-cover opacity-30">
+
+  <!-- 🌑 DARK OVERLAY -->
+  <div class="absolute inset-0 bg-black/70"></div>
+
+  <!-- 🕸️ WEB TEXTURE -->
+  <img src="assets/web.png"
+       class="absolute inset-0 w-full h-full object-cover opacity-10">
+
+  <!-- 🔴 RED LIGHT GLOW -->
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 
+              w-[500px] h-[500px] bg-red-500/20 blur-[120px] rounded-full">
+  </div>
+
+  <!-- LEFT CONTENT -->
+  <div class="w-1/2 z-10 reveal-left">
+    
+    <h2 class="group relative inline-block text-[90px] font-black text-red-500 leading-none mb-6 skew-x-[-10deg] drop-shadow-[6px_6px_black]">
+
+      WHO IS<br>SPIDER-MAN?
+
+      <!-- 🔥 Underline -->
+      <span class="absolute left-0 bottom-0 h-[6px] w-0 bg-gradient-to-r from-red-500 to-yellow-400
+                   transition-all duration-500 ease-out
+                   group-hover:w-full"></span>
+
+    </h2>
+
+    <p class="text-gray-300 text-lg leading-relaxed max-w-lg border-l-4 border-red-500 pl-5">
+      Spider-Man is the alter ego of Peter Parker, a young hero gifted with 
+      incredible abilities after being bitten by a radioactive spider. 
+      With great power comes great responsibility as he protects the city 
+      from villains while balancing his personal life.
+    </p>
+
+  </div>
+
+  <!-- RIGHT IMAGE -->
+  <div class="w-1/2 flex justify-center items-end relative reveal-bottom">
+
+    <!-- 🔥 STRONG GLOW -->
+    <div class="absolute w-[450px] h-[450px] bg-red-500/30 blur-[140px] rounded-full"></div>
+
+    <!-- 🕷️ SPIDEY -->
+    <img src="assets/spidey.png"
+         class="w-[480px] relative z-10 
+                drop-shadow-[0_30px_80px_rgba(255,0,0,0.6)]
+                transition duration-500 hover:scale-110 hover:rotate-[-3deg]">
+
+  </div>
+
+</section>
 
   <!-- SECTION 2 -->
-  <section class="h-screen flex items-center justify-center bg-black">
-    <h2 class="text-4xl">Movies & Multiverse</h2>
+  <section class="h-screen flex items-center justify-center bg-gray-900">
+    <h2 class="text-5xl font-bold text-red-500">MOVIES & MULTIVERSE</h2>
   </section>
 
   <!-- SECTION 3 -->
-  <section class="h-screen flex items-center justify-center bg-gray-900">
-    <h2 class="text-4xl">Villains</h2>
+  <section class="h-screen flex items-center justify-center bg-black">
+    <h2 class="text-5xl font-bold text-red-500">VILLAINS</h2>
   </section>
 
   <!-- SECTION 4 -->
-  <section class="flex justify-center gap-10 p-20 flex-wrap">
+  <section class="flex justify-center gap-10 p-20 flex-wrap bg-gray-900">
 
     <div class="bg-white text-black p-8 font-bold border-[5px] border-black
                 rotate-[-2deg] shadow-[12px_12px_0_red]
@@ -106,5 +189,6 @@
   </section>
 
   <script src="script.js"></script>
+
 </body>
 </html>

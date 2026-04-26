@@ -1,7 +1,7 @@
-// Register plugin
+// ✅ Register ONCE
 gsap.registerPlugin(ScrollTrigger);
 
-/* 🧠 Helper: total scroll distance */
+/* 🧠 Helper */
 function getScrollDistance() {
   return document.body.scrollHeight - window.innerHeight;
 }
@@ -14,26 +14,45 @@ gsap.to("#spiderman", {
     trigger: document.body,
     start: "top top",
     end: "bottom bottom",
-    scrub: 1
+    scrub: 1,
+    onUpdate: updateWeb
   }
 });
 
 /* 🕸️ Web follows */
-gsap.to("#web-line", {
-  height: () => getScrollDistance(),
-  ease: "none",
-  scrollTrigger: {
-    trigger: document.body,
-    start: "top top",
-    end: "bottom bottom",
-    scrub: 1
-  }
-});
+function updateWeb() {
+  const spidey = document.getElementById("spiderman");
+  const web = document.getElementById("web-line");
 
-/* ✨ Section fade-in */
+  if (!spidey || !web) return;
+
+  const rect = spidey.getBoundingClientRect();
+  web.style.height = rect.top + "px";
+}
+
+/* 🎬 HERO SCROLL */
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".hero",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  }
+})
+.to(".hero-content", {
+  y: -250,
+  opacity: 0.2,   // ⚠️ don't go fully 0
+  ease: "none"
+}, 0)
+.to(".hero-bg", {
+  scale: 1.2,
+  y: 120,
+  ease: "none"
+}, 0);
+
+/* ✨ SECTION REVEAL (SAFE) */
 gsap.utils.toArray("section").forEach((section) => {
   gsap.from(section, {
-    opacity: 0,
     y: 80,
     duration: 0.8,
     ease: "power2.out",
@@ -44,7 +63,37 @@ gsap.utils.toArray("section").forEach((section) => {
   });
 });
 
-/* 🎴 Card tilt (smoother) */
+/* 🎬 SECTION 1 ENTRY */
+gsap.timeline({
+  scrollTrigger: {
+    trigger: ".reveal-left",
+    start: "top 75%",
+    toggleActions: "play none none reverse"
+  }
+})
+.from(".reveal-left", {
+  x: -120,
+  duration: 1,
+  ease: "power3.out"
+}, 0)
+.from(".reveal-bottom", {
+  y: 120,
+  duration: 1,
+  ease: "power3.out"
+}, 0);
+
+/* 🕷️ SPIDEY SIDE MOVE */
+gsap.to(".reveal-bottom img", {
+  x: 120,
+  scrollTrigger: {
+    trigger: ".reveal-bottom",
+    start: "top 80%",
+    end: "bottom top",
+    scrub: true
+  }
+});
+
+/* 🎴 CARD TILT */
 document.querySelectorAll(".card").forEach(card => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
@@ -66,16 +115,12 @@ document.querySelectorAll(".card").forEach(card => {
   });
 });
 
-/* 🎬 Hero content animation */
-gsap.from(".hero-content", {
-  y: 60,
-  opacity: 0,
-  duration: 1,
-  ease: "power2.out",
-  delay: 0.2
+/* 🔁 FIX: Refresh AFTER everything loads */
+window.addEventListener("load", () => {
+  ScrollTrigger.refresh();
 });
 
-/* 🔁 Refresh on resize (IMPORTANT) */
+/* 🔁 Resize fix */
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh();
 });
