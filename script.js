@@ -93,45 +93,52 @@ gsap.to(".reveal-bottom img", {
   }
 });
 
-/* 🎴 CARD TILT */
-document.querySelectorAll(".card").forEach(card => {
+/* 🎴 3D TILT (WORKS FOR MOVIE CARDS) */
+document.querySelectorAll(".movie-card").forEach(card => {
   card.addEventListener("mousemove", (e) => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const rotateX = (y - rect.height / 2) / 12;
-    const rotateY = (x - rect.width / 2) / 12;
+    const rotateX = (y - rect.height / 2) / 15;
+    const rotateY = (x - rect.width / 2) / 15;
 
     card.style.transform = `
-      rotateX(${rotateX}deg)
-      rotateY(${rotateY}deg)
+      perspective(800px)
+      rotateX(${ -rotateX }deg)
+      rotateY(${ rotateY }deg)
       scale(1.05)
     `;
   });
 
   card.addEventListener("mouseleave", () => {
-    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+    card.style.transform = `
+      perspective(800px)
+      rotateX(0deg)
+      rotateY(0deg)
+      scale(1)
+    `;
   });
 });
 
-/* 🔁 FIX: Refresh AFTER everything loads */
+/* 🎬 MOVIE CARDS REVEAL (SAFE) */
+gsap.from(".movie-card", {
+  y: 80,
+  opacity: 0.3,   // ⚠️ not 0 → prevents invisible bug
+  duration: 0.8,
+  stagger: 0.15,
+  ease: "power2.out",
+  scrollTrigger: {
+    trigger: ".movie-card",
+    start: "top 85%"
+  }
+});
+
+/* 🔁 STABILITY FIX */
 window.addEventListener("load", () => {
   ScrollTrigger.refresh();
 });
 
-/* 🔁 Resize fix */
 window.addEventListener("resize", () => {
   ScrollTrigger.refresh();
-});
-
-gsap.from(".movie-card", {
-  y: 100,
-  opacity: 0,
-  duration: 1,
-  stagger: 0.2,
-  scrollTrigger: {
-    trigger: ".movie-card",
-    start: "top 80%"
-  }
 });
