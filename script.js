@@ -93,52 +93,40 @@ gsap.to(".reveal-bottom img", {
   }
 });
 
-/* 🎴 3D TILT (WORKS FOR MOVIE CARDS) */
+/* 🎴 SMOOTH 3D TILT (OPTIMIZED) */
 document.querySelectorAll(".movie-card").forEach(card => {
+
+  let bounds;
+
+  card.addEventListener("mouseenter", () => {
+    bounds = card.getBoundingClientRect();
+  });
+
   card.addEventListener("mousemove", (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = e.clientX - bounds.left;
+    const y = e.clientY - bounds.top;
 
-    const rotateX = (y - rect.height / 2) / 15;
-    const rotateY = (x - rect.width / 2) / 15;
+    const rotateX = (y - bounds.height / 2) / 25;
+    const rotateY = (x - bounds.width / 2) / 25;
 
-    card.style.transform = `
-      perspective(800px)
-      rotateX(${ -rotateX }deg)
-      rotateY(${ rotateY }deg)
-      scale(1.05)
-    `;
+    gsap.to(card, {
+      rotateX: -rotateX,
+      rotateY: rotateY,
+      scale: 1.04,
+      duration: 0.2,
+      ease: "power2.out",
+      transformPerspective: 800
+    });
   });
 
   card.addEventListener("mouseleave", () => {
-    card.style.transform = `
-      perspective(800px)
-      rotateX(0deg)
-      rotateY(0deg)
-      scale(1)
-    `;
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      duration: 0.3,
+      ease: "power2.out"
+    });
   });
-});
 
-/* 🎬 MOVIE CARDS REVEAL (SAFE) */
-gsap.from(".movie-card", {
-  y: 80,
-  opacity: 0.3,   // ⚠️ not 0 → prevents invisible bug
-  duration: 0.8,
-  stagger: 0.15,
-  ease: "power2.out",
-  scrollTrigger: {
-    trigger: ".movie-card",
-    start: "top 85%"
-  }
-});
-
-/* 🔁 STABILITY FIX */
-window.addEventListener("load", () => {
-  ScrollTrigger.refresh();
-});
-
-window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
 });

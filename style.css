@@ -185,3 +185,39 @@ body {
 .movie-card:hover p {
   background: rgba(0,0,0,0.9);
 }
+
+/* 🔥 COMIC 3D TEXT (POP OUT EFFECT) */
+.comic-3d {
+  position: relative;
+  display: inline-block;
+
+  font-family: 'Bangers', cursive;
+  color: #ff1a1a;
+
+  -webkit-text-stroke: 2px black;
+
+  transform: skewX(-10deg);
+  letter-spacing: 2px;
+
+  /* layered depth */
+  text-shadow:
+    2px 2px 0 black,
+    4px 4px 0 black,
+    6px 6px 0 black,
+    8px 8px 0 black,
+    10px 10px 0 black;
+
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 🔥 POP OUT ON HOVER */
+.comic-3d:hover {
+  transform: skewX(-10deg) scale(1.06) translateY(-6px);
+
+  text-shadow:
+    3px 3px 0 black,
+    6px 6px 0 black,
+    9px 9px 0 black,
+    12px 12px 0 black,
+    15px 15px 0 black;
+}
