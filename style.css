@@ -221,3 +221,11 @@ body {
     12px 12px 0 black,
     15px 15px 0 black;
 }
+
+#movieContent {
+  will-change: transform, opacity;
+}
+
+#movieOverlay {
+  transition: opacity 0.4s ease;
+}

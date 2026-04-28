@@ -130,3 +130,91 @@ document.querySelectorAll(".movie-card").forEach(card => {
   });
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const movieView = document.getElementById("movieView");
+  const overlay = document.getElementById("movieOverlay");
+  const content = document.getElementById("movieContent");
+
+  const img = document.getElementById("movieImg");
+  const title = document.getElementById("movieTitle");
+  const desc = document.getElementById("movieDesc");
+
+  const closeBtn = document.getElementById("closeMovie");
+
+  // 🎬 OPEN
+  document.querySelectorAll(".movie-card").forEach(card => {
+    card.addEventListener("click", () => {
+
+      title.textContent = card.dataset.title;
+      desc.textContent = card.dataset.desc;
+      img.src = card.querySelector("img").src;
+
+      movieView.classList.remove("hidden");
+
+      gsap.fromTo("#movieOverlay",
+        { opacity: 0 },
+        { opacity: 1, duration: 0.25 }
+      );
+
+      gsap.fromTo("#movieContent",
+        { scale: 0.9, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.3 }
+      );
+
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  // ❌ CLOSE FUNCTION
+function closeMovie() {
+
+  // animate content
+  gsap.to("#movieContent", {
+    scale: 0.85,
+    opacity: 0,
+    duration: 0.3,
+    ease: "power2.in"
+  });
+
+  // animate overlay + hide AFTER animation
+  gsap.to("#movieOverlay", {
+    opacity: 0,
+    duration: 0.3,
+    ease: "power2.in",
+    onComplete: () => {
+      movieView.classList.add("hidden");
+
+      // reset for next open
+      gsap.set("#movieContent", { clearProps: "all" });
+      gsap.set("#movieOverlay", { clearProps: "all" });
+
+      document.body.style.overflow = "auto";
+    }
+  });
+
+}
+
+  // ✅ BUTTON WORKS
+  closeBtn.addEventListener("click", closeMovie);
+
+  // ✅ CLICK OUTSIDE
+  overlay.addEventListener("click", closeMovie);
+
+  // ✅ ESC KEY
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMovie();
+  });
+
+});
+
+gsap.fromTo("#movieContent",
+  { scale: 0.85, opacity: 0 },
+  { scale: 1, opacity: 1, duration: 0.35, ease: "power2.out" }
+);
+
+gsap.fromTo("#movieOverlay",
+  { opacity: 0 },
+  { opacity: 1, duration: 0.3 }
+);
