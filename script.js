@@ -144,29 +144,74 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeBtn = document.getElementById("closeMovie");
 
   // 🎬 OPEN
-  document.querySelectorAll(".movie-card").forEach(card => {
+    document.querySelectorAll(".movie-card").forEach(card => {
     card.addEventListener("click", () => {
 
-      title.textContent = card.dataset.title;
-      desc.textContent = card.dataset.desc;
-      img.src = card.querySelector("img").src;
+      const cardImg = card.querySelector("img");
+      const rect = cardImg.getBoundingClientRect();
 
+      // 🎬 clone
+      const clone = cardImg.cloneNode();
+      clone.classList.add("clone-img");
+
+      Object.assign(clone.style, {
+        top: rect.top + "px",
+        left: rect.left + "px",
+        width: rect.width + "px",
+        height: rect.height + "px"
+      });
+
+      document.body.appendChild(clone);
+
+      // 🔥 SHOW MODAL BUT KEEP IT INVISIBLE
       movieView.classList.remove("hidden");
-
-      gsap.fromTo("#movieOverlay",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.25 }
-      );
-
-      gsap.fromTo("#movieContent",
-        { scale: 0.9, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.3 }
-      );
+      gsap.set("#movieOverlay", { opacity: 0 });
+      gsap.set("#movieContent", { opacity: 0 });
 
       document.body.style.overflow = "hidden";
+
+      // 🔥 EXPAND CLONE (NO JUMP)
+      gsap.to(clone, {
+        top: "50%",
+        left: "35%",   // slight left for text space
+        x: "-50%",
+        y: "-50%",
+        width: "30vw",
+        height: "70vh",
+        duration: 0.6,
+        ease: "power3.inOut",
+        onComplete: () => {
+
+          // set content
+          title.textContent = card.dataset.title;
+          desc.textContent = card.dataset.desc;
+          img.src = cardImg.src;
+
+          // fade overlay first
+          gsap.to("#movieOverlay", {
+            opacity: 1,
+            duration: 0.3
+          });
+
+          // show text
+          gsap.to("#movieContent", {
+            opacity: 1,
+            duration: 0.4
+          });
+
+          // 🔥 smooth image handoff
+          setTimeout(() => {
+            img.style.opacity = "1";   // fade real image in
+            clone.style.opacity = "0"; // fade clone out
+          }, 100);
+
+          // remove clone AFTER fade
+          setTimeout(() => clone.remove(), 350);
+        }
+      });
+
     });
   });
-
   // ❌ CLOSE FUNCTION
 function closeMovie() {
 
@@ -208,13 +253,3 @@ function closeMovie() {
   });
 
 });
-
-gsap.fromTo("#movieContent",
-  { scale: 0.85, opacity: 0 },
-  { scale: 1, opacity: 1, duration: 0.35, ease: "power2.out" }
-);
-
-gsap.fromTo("#movieOverlay",
-  { opacity: 0 },
-  { opacity: 1, duration: 0.3 }
-);

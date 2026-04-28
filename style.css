@@ -229,3 +229,15 @@ body {
 #movieOverlay {
   transition: opacity 0.4s ease;
 }
+
+.clone-img {
+  position: fixed;
+  z-index: 9999;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+#movieImg {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
