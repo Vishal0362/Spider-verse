@@ -257,8 +257,90 @@
 </section>
 
   <!-- SECTION 3 -->
-  <section class="h-screen flex items-center justify-center bg-black">
-    <h2 class="text-5xl font-bold text-red-500">VILLAINS</h2>
+  <section class="villains-section bg-[#050505] px-6 md:px-16 py-24">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-end mb-12">
+        <div>
+          <div class="section-kicker mb-4">SPIDER-MAN ROGUES</div>
+          <h2 class="comic-3d text-5xl md:text-7xl mb-4">THREATS</h2>
+          <p class="max-w-xl text-gray-300 text-base md:text-lg leading-relaxed">
+            Every Spider-Man story needs pressure. These are the threats that push Peter and Miles into
+            bigger fights, tougher choices, and wider chaos.
+          </p>
+        </div>
+
+        <div class="villains-summary grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="summary-chip">
+            <span>THREAT LEVEL</span>
+            <strong>MAX</strong>
+          </div>
+          <div class="summary-chip">
+            <span>CONFLICT</span>
+            <strong>HIGH</strong>
+          </div>
+          <div class="summary-chip">
+            <span>IMPACT</span>
+            <strong>LEGACY</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <article class="villain-card" style="--accent:#39ff88; --accent-rgb:57,255,136;">
+          <div class="villain-card__top">
+            <span class="villain-tag">Classic</span>
+            <span class="villain-threat">9.8</span>
+          </div>
+          <h3>Green Goblin</h3>
+          <p>Osborn turns genius-level ambition into chaos, pressure, and personal loss.</p>
+          <div class="villain-meta">
+            <span>Tech arsenal</span>
+            <span>Personal enemy</span>
+          </div>
+        </article>
+
+        <article class="villain-card" style="--accent:#ff8a2a; --accent-rgb:255,138,42;">
+          <div class="villain-card__top">
+            <span class="villain-tag">Brute Force</span>
+            <span class="villain-threat">9.3</span>
+          </div>
+          <h3>Doctor Octopus</h3>
+          <p>Precision, intelligence, and four mechanical arms make every fight tactical.</p>
+          <div class="villain-meta">
+            <span>Mechanical arms</span>
+            <span>Genius threat</span>
+          </div>
+        </article>
+
+        <article class="villain-card" style="--accent:#d96bff; --accent-rgb:217,107,255;">
+          <div class="villain-card__top">
+            <span class="villain-tag">Symbiote</span>
+            <span class="villain-threat">9.6</span>
+          </div>
+          <h3>Venom</h3>
+          <p>Raw strength and a mirror of Spider-Man's own power make the fight personal.</p>
+          <div class="villain-meta">
+            <span>Adaptive power</span>
+            <span>Dark mirror</span>
+          </div>
+        </article>
+
+        <article class="villain-card" style="--accent:#5cc8ff; --accent-rgb:92,200,255;">
+          <div class="villain-card__top">
+            <span class="villain-tag">Multiverse</span>
+            <span class="villain-threat">9.1</span>
+          </div>
+          <h3>Mysterio</h3>
+          <p>Illusion, misdirection, and spectacle turn every scene into a trap.</p>
+          <div class="villain-meta">
+            <span>Fake reality</span>
+            <span>Psychological attack</span>
+          </div>
+        </article>
+      </div>
+
+    </div>
   </section>
 
   <!-- SECTION 4 -->
@@ -279,30 +361,34 @@
   </section>
 
 </div>
-    <!-- 🎬 CINEMATIC MOVIE VIEW -->
-    <div id="movieView" class="fixed inset-0 z-[9999] hidden">
+    <!-- 🎬 MOVIE POPUP -->
+    <div id="movieView"
+         class="fixed inset-0 z-[9999] flex items-center justify-center px-4 py-8 opacity-0 pointer-events-none"
+         aria-hidden="true"
+         style="display:none;">
 
-      <!-- 🔥 DARK BACKDROP -->
-      <div id="movieOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-md opacity-0"></div>
+      <div id="movieOverlay" class="absolute inset-0 bg-black/85 backdrop-blur-md opacity-0"></div>
 
-      <!-- 🎬 CONTENT -->
       <div id="movieContent"
-          class="absolute inset-0 flex items-center justify-center scale-90 opacity-0 transition-all duration-500">
+           class="relative z-10 w-full max-w-6xl scale-95 translate-y-6 opacity-0">
 
-        <div class="w-[90%] max-w-6xl grid grid-cols-2 gap-10 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 bg-black/90 border border-white/15 rounded-xl shadow-2xl p-5 md:p-8">
 
-          <!-- 🎥 POSTER -->
           <img id="movieImg"
-              class="w-full max-h-[80vh] object-contain rounded-xl shadow-2xl">
+               class="w-full max-h-[78vh] object-contain rounded-lg shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+               alt="">
 
-          <!-- 📄 INFO -->
-          <div>
-            <h2 id="movieTitle" class="text-6xl font-black text-red-500 mb-6"></h2>
-            <p id="movieDesc" class="text-gray-300 text-lg leading-relaxed"></p>
+          <div class="flex flex-col justify-center">
+            <div id="movieUniverse"
+                 class="inline-flex w-fit mb-4 px-3 py-1 text-xs font-bold tracking-[0.2em] uppercase border border-red-500/60 text-red-400 bg-red-500/10">
+            </div>
+
+            <h2 id="movieTitle" class="text-4xl md:text-6xl font-black text-red-500 mb-5"></h2>
+            <p id="movieDesc" class="text-gray-300 text-base md:text-lg leading-relaxed"></p>
 
             <button id="closeMovie"
-                    class="mt-10 px-6 py-3 border border-white hover:bg-white hover:text-black transition">
-              CLOSE ✕
+                    class="mt-8 w-fit px-6 py-3 border border-white/70 text-white hover:bg-white hover:text-black transition">
+              CLOSE
             </button>
           </div>
 

@@ -140,106 +140,73 @@ document.addEventListener("DOMContentLoaded", () => {
   const img = document.getElementById("movieImg");
   const title = document.getElementById("movieTitle");
   const desc = document.getElementById("movieDesc");
+  const universe = document.getElementById("movieUniverse");
 
   const closeBtn = document.getElementById("closeMovie");
 
-  // 🎬 OPEN
-    document.querySelectorAll(".movie-card").forEach(card => {
-    card.addEventListener("click", () => {
+  const universeLabels = {
+    "EARTH-96283": "Tobey Maguire Era",
+    "EARTH-120703": "Andrew Garfield Era",
+    "EARTH-616": "MCU",
+    "MULTIVERSE": "Multiverse Event",
+    "SPIDER-VERSE": "Spider-Verse"
+  };
 
-      const cardImg = card.querySelector("img");
-      const rect = cardImg.getBoundingClientRect();
+  function openMovie(card) {
+    const cardImg = card.querySelector("img");
+    if (!cardImg) return;
 
-      // 🎬 clone
-      const clone = cardImg.cloneNode();
-      clone.classList.add("clone-img");
+    title.textContent = card.dataset.title || "";
+    desc.textContent = card.dataset.desc || "";
+    universe.textContent = universeLabels[card.dataset.universe] || card.dataset.universe || "";
 
-      Object.assign(clone.style, {
-        top: rect.top + "px",
-        left: rect.left + "px",
-        width: rect.width + "px",
-        height: rect.height + "px"
-      });
+    img.src = cardImg.src;
+    img.alt = card.dataset.title || cardImg.alt || "";
+    img.style.opacity = "0";
 
-      document.body.appendChild(clone);
+    movieView.style.display = "flex";
+    movieView.classList.remove("pointer-events-none");
+    movieView.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
 
-      // 🔥 SHOW MODAL BUT KEEP IT INVISIBLE
-      movieView.classList.remove("hidden");
-      gsap.set("#movieOverlay", { opacity: 0 });
-      gsap.set("#movieContent", { opacity: 0 });
+    gsap.killTweensOf([movieOverlay, content, img]);
+    gsap.set(movieOverlay, { opacity: 0 });
+    gsap.set(content, { opacity: 0, scale: 0.95, y: 24 });
 
-      document.body.style.overflow = "hidden";
+    gsap.timeline()
+      .to(movieView, { opacity: 1, duration: 0.15, ease: "power1.out" }, 0)
+      .to(movieOverlay, { opacity: 1, duration: 0.22, ease: "power2.out" }, 0)
+      .to(content, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.05)
+      .to(img, { opacity: 1, duration: 0.25, ease: "power2.out" }, 0.18);
+  }
 
-      // 🔥 EXPAND CLONE (NO JUMP)
-      gsap.to(clone, {
-        top: "50%",
-        left: "35%",   // slight left for text space
-        x: "-50%",
-        y: "-50%",
-        width: "30vw",
-        height: "70vh",
-        duration: 0.6,
-        ease: "power3.inOut",
-        onComplete: () => {
+  function closeMovie() {
+    gsap.killTweensOf([movieOverlay, content, img, movieView]);
 
-          // set content
-          title.textContent = card.dataset.title;
-          desc.textContent = card.dataset.desc;
-          img.src = cardImg.src;
+    gsap.timeline({
+      onComplete: () => {
+        movieView.style.display = "none";
+        movieView.classList.add("pointer-events-none");
+        movieView.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "auto";
+      }
+    })
+      .to(content, { opacity: 0, scale: 0.96, y: 18, duration: 0.18, ease: "power2.in" }, 0)
+      .to(movieOverlay, { opacity: 0, duration: 0.2, ease: "power2.in" }, 0.02)
+      .to(movieView, { opacity: 0, duration: 0.2, ease: "power1.in" }, 0.02);
+  }
 
-          // fade overlay first
-          gsap.to("#movieOverlay", {
-            opacity: 1,
-            duration: 0.3
-          });
-
-          // show text
-          gsap.to("#movieContent", {
-            opacity: 1,
-            duration: 0.4
-          });
-
-          // 🔥 smooth image handoff
-          setTimeout(() => {
-            img.style.opacity = "1";   // fade real image in
-            clone.style.opacity = "0"; // fade clone out
-          }, 100);
-
-          // remove clone AFTER fade
-          setTimeout(() => clone.remove(), 350);
-        }
-      });
-
+  document.querySelectorAll(".movie-card").forEach(card => {
+    card.addEventListener("click", () => openMovie(card));
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openMovie(card);
+      }
     });
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("role", "button");
   });
-  // ❌ CLOSE FUNCTION
-function closeMovie() {
-
-  // animate content
-  gsap.to("#movieContent", {
-    scale: 0.85,
-    opacity: 0,
-    duration: 0.3,
-    ease: "power2.in"
-  });
-
-  // animate overlay + hide AFTER animation
-  gsap.to("#movieOverlay", {
-    opacity: 0,
-    duration: 0.3,
-    ease: "power2.in",
-    onComplete: () => {
-      movieView.classList.add("hidden");
-
-      // reset for next open
-      gsap.set("#movieContent", { clearProps: "all" });
-      gsap.set("#movieOverlay", { clearProps: "all" });
-
-      document.body.style.overflow = "auto";
-    }
-  });
-
-}
 
   // ✅ BUTTON WORKS
   closeBtn.addEventListener("click", closeMovie);
