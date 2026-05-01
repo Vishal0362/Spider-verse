@@ -152,6 +152,14 @@ document.addEventListener("DOMContentLoaded", () => {
     "SPIDER-VERSE": "Spider-Verse"
   };
 
+  const movieEraLabels = {
+    "EARTH-96283": "Tobey",
+    "EARTH-120703": "Andrew",
+    "EARTH-616": "MCU",
+    "MULTIVERSE": "Multiverse",
+    "SPIDER-VERSE": "Spider-Verse"
+  };
+
   function openMovie(card) {
     const cardImg = card.querySelector("img");
     if (!cardImg) return;
@@ -197,6 +205,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   document.querySelectorAll(".movie-card").forEach(card => {
+    if (!card.querySelector(".movie-era")) {
+      const era = document.createElement("span");
+      era.className = "movie-era";
+      era.textContent = movieEraLabels[card.dataset.universe] || "Spider-Man";
+      card.appendChild(era);
+    }
+
     card.addEventListener("click", () => openMovie(card));
     card.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
